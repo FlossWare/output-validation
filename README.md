@@ -34,7 +34,7 @@ Validation must not silently turn invalid output into a successful result. Any r
 
 ## Status
 
-Keep this capability independently reusable and free of agent-runtime assumptions. Package names, APIs, and documentation should use `output-validation`; retain an older published distribution name only where required for compatibility and document that exception.
+Keep this capability independently reusable and free of agent-runtime assumptions. Repository-level documentation and links should use `output-validation`. Package and import names are implementation details and should be changed only after compatibility and release implications are checked.
 
 ## License
 

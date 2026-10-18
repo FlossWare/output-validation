@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "output-validation"
-version = "0.1"
+version = "0.2"
 description = "Reusable schema validation and normalization for structured model output"
 readme = "README.md"
 license = "MIT"
@@ -44,7 +44,7 @@ line-length = 99
 select = ["E", "F", "I", "N", "W", "UP"]
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "0.2"
 warn_return_any = true
 warn_unused_configs = true
 

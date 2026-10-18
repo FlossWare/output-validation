@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 # -- optional jsonschema import ---------------------------------------------
 
 try:
-    import jsonschema
+    import jsonschema  # type: ignore[import-untyped]
 
     _HAS_JSONSCHEMA = True
 except ImportError:  # pragma: no cover

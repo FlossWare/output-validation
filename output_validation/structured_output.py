@@ -1,13 +1,8 @@
 """Structured-output backend wrapping any LLMBackend.
 
-Adds schema-validated JSON output with automatic retries to any
-existing ``LLMBackend`` implementation.  Satisfies the
-``StructuredOutputMixin`` protocol via structural subtyping.
-
-Optional dependency: ``jsonschema`` is used for full JSON Schema
-validation when available; otherwise a basic dict-key check is used.
-
-Zero required external dependencies beyond the standard library.
+Adds bounded schema validation and retry handling to an existing backend.
+The backend adapter is a convenience integration; the validation primitives
+live independently in :mod:`output_validation.validation`.
 """
 
 from __future__ import annotations
@@ -17,24 +12,6 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
 from output_validation.types import ChatMessage, ChatResponse, StructuredResponse
-
-if TYPE_CHECKING:
-    from output_validation.protocol import LLMBackend
-
-# -- optional jsonschema import ---------------------------------------------
-
-try:
-    import jsonschema  # type: ignore[import-untyped]
-
-    _HAS_JSONSCHEMA = True
-except ImportError:  # pragma: no cover
-    jsonschema = None  # type: ignore[assignment]
-    _HAS_JSONSCHEMA = False
-
-
-# -- helpers -----------------------------------------------------------------
-
-
 from output_validation.validation import (
     extract_json,
     normalize_parsed,
@@ -42,7 +19,10 @@ from output_validation.validation import (
     validate_schema,
 )
 
-# Private aliases preserve internal imports while the public core lives in validation.py.
+if TYPE_CHECKING:
+    from output_validation.protocol import LLMBackend
+
+# Private aliases preserve existing module-level helper names.
 _extract_json = extract_json
 _validate_schema = validate_schema
 _try_parse_json = try_parse_json

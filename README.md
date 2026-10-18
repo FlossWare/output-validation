@@ -34,7 +34,7 @@ Validation must not silently turn invalid output into a successful result. Any r
 
 ## Current implementation and migration note
 
-The existing `output_validation` package exports `StructuredOutputBackend`, `LLMBackend`, and the `structured_output` decorator. That API combines a backend-facing adapter with output extraction and validation; it is not yet a pure, backend-independent validator in every code path. The intended boundary above remains the target architecture, not a claim that all legacy coupling has already been removed.
+The backend-independent parsing, normalization, and schema-validation primitives now live in `output_validation.validation` and are exported from the package root. `output_validation.structured_output` remains a convenience adapter that wraps an `LLMBackend` with bounded retries; model invocation itself remains the caller's responsibility. This keeps the validation core reusable without forcing consumers to use the adapter.
 
 Keep this capability independently reusable and free of agent-runtime assumptions. Repository-level documentation and links use `output-validation`. The distribution is `output-validation` and the canonical Python import package is `output_validation`.
 

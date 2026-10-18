@@ -94,4 +94,5 @@ def normalize_parsed(parsed: Any) -> dict | list | Any:
     """Return parsed value as-is; dicts and lists pass through directly."""
     return parsed
 
+
 __all__ = ["extract_json", "normalize_parsed", "try_parse_json", "validate_schema"]

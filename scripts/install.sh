@@ -1,8 +1,8 @@
 #!/bin/bash
-# Install structured-output-ai from GitHub
+# Install output-validation from GitHub
 set -e
 
-pip install "git+https://github.com/FlossWare/structured-output-ai.git"
+pip install "git+https://github.com/FlossWare/output-validation.git"
 
-echo "structured-output-ai installed successfully"
-echo "Verify: python3 -c 'import structured_output_ai; print(structured_output_ai.__version__)'"
+echo "output-validation installed successfully"
+echo "Verify: python3 -c 'import output_validation; print(output_validation.__version__)'"

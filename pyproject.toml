@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "structured-output-ai"
 version = "0.1"
-description = "Schema-validated JSON output from LLMs with automatic retries"
+description = "Reusable schema validation and normalization for structured model output"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
@@ -29,9 +29,9 @@ jsonschema = ["jsonschema>=4.0"]
 dev = ["pytest", "pytest-asyncio", "ruff", "mypy", "bandit"]
 
 [project.urls]
-Homepage = "https://github.com/FlossWare/structured-output-ai"
-Repository = "https://github.com/FlossWare/structured-output-ai"
-Issues = "https://github.com/FlossWare/structured-output-ai/issues"
+Homepage = "https://github.com/FlossWare/output-validation"
+Repository = "https://github.com/FlossWare/output-validation"
+Issues = "https://github.com/FlossWare/output-validation/issues"
 
 [tool.setuptools.packages.find]
 include = ["structured_output_ai*"]

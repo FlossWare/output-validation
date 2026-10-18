@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Verify structured-output-ai installation and run a quick smoke test."""
+"""Verify output-validation installation and run a quick smoke test."""
 import sys
 
 
 def main():
     try:
-        from structured_output_ai import (
+        from output_validation import (
             ChatMessage,
             ChatResponse,
             LLMBackend,
@@ -14,14 +14,14 @@ def main():
             structured_output,
         )
     except ImportError as e:
-        print(f"FAIL: Could not import structured_output_ai: {e}")
-        print("Install: pip install 'git+https://github.com/FlossWare/structured-output-ai.git'")
+        print(f"FAIL: Could not import output_validation: {e}")
+        print("Install: pip install 'git+https://github.com/FlossWare/output-validation.git'")
         sys.exit(1)
 
-    import structured_output_ai
+    import output_validation
 
-    print(f"structured-output-ai v{structured_output_ai.__version__} installed successfully")
-    print(f"Exports: {len(structured_output_ai.__all__)} public symbols")
+    print(f"output-validation v{output_validation.__version__} installed successfully")
+    print(f"Exports: {len(output_validation.__all__)} public symbols")
 
     # Smoke test: StructuredResponse
     response = StructuredResponse(

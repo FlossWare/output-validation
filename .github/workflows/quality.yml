@@ -27,10 +27,10 @@ jobs:
           pip install ruff
 
       - name: Ruff Check
-        run: ruff check structured_output_ai/
+        run: ruff check output_validation/
 
       - name: Ruff Format Check
-        run: ruff format --check structured_output_ai/
+        run: ruff format --check output_validation/
 
   type-check:
     name: Type Check (MyPy)
@@ -53,7 +53,7 @@ jobs:
           pip install mypy
 
       - name: Run MyPy
-        run: mypy structured_output_ai/
+        run: mypy output_validation/
 
   security:
     name: Security Scan
@@ -75,8 +75,8 @@ jobs:
 
       - name: Run Bandit
         run: |
-          bandit -r structured_output_ai/ -f json -o bandit-report.json || true
-          bandit -r structured_output_ai/ -f screen
+          bandit -r output_validation/ -f json -o bandit-report.json || true
+          bandit -r output_validation/ -f screen
 
       - name: Upload security report
         uses: actions/upload-artifact@v4
@@ -105,11 +105,11 @@ jobs:
           pip install radon xenon
 
       - name: Cyclomatic Complexity
-        run: radon cc structured_output_ai/ -a -s
+        run: radon cc output_validation/ -a -s
 
       - name: Maintainability Index
-        run: radon mi structured_output_ai/ -s
+        run: radon mi output_validation/ -s
 
       - name: Check Complexity Thresholds
         continue-on-error: true
-        run: xenon --max-average B --max-modules B --max-absolute B structured_output_ai/
+        run: xenon --max-average B --max-modules B --max-absolute B output_validation/

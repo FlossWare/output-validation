@@ -13,7 +13,6 @@ Zero required external dependencies beyond the standard library.
 from __future__ import annotations
 
 import functools
-import json
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
@@ -36,84 +35,18 @@ except ImportError:  # pragma: no cover
 # -- helpers -----------------------------------------------------------------
 
 
-def _extract_json(text: str) -> str:
-    """Extract a JSON object or array from *text*.
+from output_validation.validation import (
+    extract_json,
+    normalize_parsed,
+    try_parse_json,
+    validate_schema,
+)
 
-    Handles the common case where models wrap JSON in a Markdown
-    code fence (````json ... ````).  Falls back to returning *text*
-    unchanged so ``json.loads`` can attempt parsing directly.
-    """
-    stripped = text.strip()
-
-    # Strip markdown code fences
-    if stripped.startswith("```"):
-        lines = stripped.splitlines()
-        # Remove opening fence (```json or ```)
-        lines = lines[1:]
-        # Remove closing fence if present
-        if lines and lines[-1].strip() == "```":
-            lines = lines[:-1]
-        return "\n".join(lines).strip()
-
-    return stripped
-
-
-def _validate_schema(parsed: Any, schema: dict) -> tuple[bool, str]:
-    """Validate *parsed* against *schema*.
-
-    Returns ``(is_valid, error_message)``.  Uses ``jsonschema`` when
-    available; otherwise checks that all ``required`` keys are present
-    and all ``properties`` keys are a subset of the parsed dict.
-    """
-    if _HAS_JSONSCHEMA:
-        try:
-            jsonschema.validate(instance=parsed, schema=schema)
-            return True, ""
-        except (jsonschema.ValidationError, jsonschema.SchemaError) as exc:
-            return False, str(exc.message)
-
-    # Fallback: basic type + key checking
-    schema_type = schema.get("type")
-    if schema_type == "object" and not isinstance(parsed, dict):
-        return False, f"Expected object, got {type(parsed).__name__}"
-    if schema_type == "array" and not isinstance(parsed, list):
-        return False, f"Expected array, got {type(parsed).__name__}"
-
-    if not isinstance(parsed, dict):
-        return True, ""
-
-    required = schema.get("required", [])
-    properties = schema.get("properties", {})
-
-    missing = [k for k in required if k not in parsed]
-    if missing:
-        return False, f"Missing required keys: {missing}"
-
-    if properties:
-        extra = [k for k in parsed if k not in properties]
-        if extra and schema.get("additionalProperties") is False:
-            return False, f"Unexpected keys: {extra}"
-
-    return True, ""
-
-
-def _try_parse_json(raw_text: str) -> tuple[Any, str | None]:
-    """Extract and parse JSON from *raw_text*.
-
-    Returns ``(parsed_value, error_message)``.  On success,
-    *error_message* is ``None``.  On failure, *parsed_value* is ``None``
-    and *error_message* describes the parse error.
-    """
-    try:
-        extracted = _extract_json(raw_text)
-        return json.loads(extracted), None
-    except ValueError as exc:
-        return None, str(exc)
-
-
-def _normalize_parsed(parsed: Any) -> dict | list | Any:
-    """Return parsed value as-is; dicts and lists pass through directly."""
-    return parsed
+# Private aliases preserve internal imports while the public core lives in validation.py.
+_extract_json = extract_json
+_validate_schema = validate_schema
+_try_parse_json = try_parse_json
+_normalize_parsed = normalize_parsed
 
 
 def _append_retry_messages(

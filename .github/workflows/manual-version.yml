@@ -90,12 +90,12 @@ jobs:
         run: |
           NEW_VERSION="${{ steps.calculate.outputs.new-version }}"
           sed -i 's/version = "[0-9]\+\.[0-9]\+"/version = "'$NEW_VERSION'"/' pyproject.toml
-          sed -i 's/__version__ = "[0-9]\+\.[0-9]\+"/__version__ = "'$NEW_VERSION'"/' structured_output_ai/__init__.py
+          sed -i 's/__version__ = "[0-9]\+\.[0-9]\+"/__version__ = "'$NEW_VERSION'"/' output_validation/__init__.py
 
       - name: Validate version sync
         run: |
           PYPROJECT_VERSION=$(grep -oP 'version = "\K[0-9]+\.[0-9]+' pyproject.toml | head -1)
-          INIT_VERSION=$(grep -oP '__version__ = "\K[0-9]+\.[0-9]+' structured_output_ai/__init__.py)
+          INIT_VERSION=$(grep -oP '__version__ = "\K[0-9]+\.[0-9]+' output_validation/__init__.py)
           if [ "$PYPROJECT_VERSION" != "$INIT_VERSION" ]; then
             echo "ERROR: Version mismatch!"
             exit 1
@@ -104,7 +104,7 @@ jobs:
       - name: Commit and tag
         run: |
           NEW_VERSION="${{ steps.calculate.outputs.new-version }}"
-          git add pyproject.toml structured_output_ai/__init__.py
+          git add pyproject.toml output_validation/__init__.py
           if [[ -n "${{ inputs.bump_type }}" ]]; then
             COMMIT_MSG="Manual version bump to $NEW_VERSION (${{ inputs.bump_type }})"
           else

@@ -1,30 +1,40 @@
-# structured-output
+# output-validation
 
-Reusable structured-output capability for FlossWare.
+**Reusable structured-output validation and normalization for FlossWare.**
 
-This repository validates model responses against schemas and can retry malformed or non-conforming output.
+This repository validates model responses against schemas, normalizes valid results into predictable representations, and provides bounded handling for malformed or non-conforming output.
 
 ## Architectural boundary
 
-Structured output is a **result contract**, not a model backend or orchestration layer.
+Output validation is a **result-contract capability**, not a model backend or orchestration layer.
 
-- `model-gateway` owns provider/model invocation.
-- `structured-output` validates and normalizes the returned representation.
-- `evaluation` decides whether the resulting artifact satisfies an Intent.
-- Loom owns Workers, Arbiters, execution, retries/replanning at the task level, and orchestration.
+- `model-gateway` owns provider/model invocation and provider-specific structured-generation mechanisms.
+- `output-validation` owns schema validation, parsing/normalization, and validation evidence.
+- `evaluation` assesses whether a result satisfies the requested outcome.
+- `loom-ai` owns Workers, Arbiters, task-level retries/replanning, execution, and orchestration.
 
 ```text
-Worker -> model-gateway -> structured-output -> typed result
-                              |
-                              v
-                         validation evidence
+Worker -> model-gateway -> output-validation -> validated result
+                                  |
+                                  v
+                           validation evidence
 ```
 
-Provider-specific structured-output mechanisms should be adapted by `model-gateway`; this repository provides reusable schema/validation behavior.
+Provider-specific structured-generation features should be adapted by `model-gateway`. This repository provides reusable validation behavior that can also be consumed outside Loom.
+
+## Scope
+
+- Schema-based validation of structured model output
+- Parsing and normalization into predictable result representations
+- Clear validation failures and supporting evidence
+- Bounded repair/retry behavior where explicitly configured
+- Transport-independent contracts and tests
+
+Validation must not silently turn invalid output into a successful result. Any repair or retry should be bounded, observable, and distinguish the original response from the accepted result.
 
 ## Status
 
-Active supporting capability. Keep the package transport-independent and free of agent-runtime assumptions.
+Keep this capability independently reusable and free of agent-runtime assumptions. Package names, APIs, and documentation should use `output-validation`; retain an older published distribution name only where required for compatibility and document that exception.
 
 ## License
 

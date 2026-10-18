@@ -34,9 +34,9 @@ Validation must not silently turn invalid output into a successful result. Any r
 
 ## Current implementation and migration note
 
-The existing `structured_output_ai` package exports `StructuredOutputBackend`, `LLMBackend`, and the `structured_output` decorator. That API combines a backend-facing adapter with output extraction and validation; it is not yet a pure, backend-independent validator in every code path. The intended boundary above remains the target architecture, not a claim that all legacy coupling has already been removed.
+The existing `output_validation` package exports `StructuredOutputBackend`, `LLMBackend`, and the `structured_output` decorator. That API combines a backend-facing adapter with output extraction and validation; it is not yet a pure, backend-independent validator in every code path. The intended boundary above remains the target architecture, not a claim that all legacy coupling has already been removed.
 
-Keep this capability independently reusable and free of agent-runtime assumptions. Repository-level documentation and links use `output-validation`. The distribution name (`structured-output-ai`) and import package (`structured_output_ai`) remain legacy identifiers for now; changing them requires an explicit compatibility and release decision.
+Keep this capability independently reusable and free of agent-runtime assumptions. Repository-level documentation and links use `output-validation`. The distribution is `output-validation` and the canonical Python import package is `output_validation`.
 
 ## License
 

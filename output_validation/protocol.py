@@ -7,7 +7,8 @@ must satisfy.  Uses :class:`typing.Protocol` for structural subtyping
 
 from __future__ import annotations
 
-from typing import AsyncIterator, Protocol, runtime_checkable
+from collections.abc import AsyncIterator
+from typing import Protocol, runtime_checkable
 
 from output_validation.types import ChatMessage, ChatResponse
 

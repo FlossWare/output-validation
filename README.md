@@ -32,9 +32,11 @@ Provider-specific structured-generation features should be adapted by `model-gat
 
 Validation must not silently turn invalid output into a successful result. Any repair or retry should be bounded, observable, and distinguish the original response from the accepted result.
 
-## Status
+## Current implementation and migration note
 
-Keep this capability independently reusable and free of agent-runtime assumptions. Repository-level documentation and links should use `output-validation`. Package and import names are implementation details and should be changed only after compatibility and release implications are checked.
+The existing `structured_output_ai` package exports `StructuredOutputBackend`, `LLMBackend`, and the `structured_output` decorator. That API combines a backend-facing adapter with output extraction and validation; it is not yet a pure, backend-independent validator in every code path. The intended boundary above remains the target architecture, not a claim that all legacy coupling has already been removed.
+
+Keep this capability independently reusable and free of agent-runtime assumptions. Repository-level documentation and links use `output-validation`. The distribution name (`structured-output-ai`) and import package (`structured_output_ai`) remain legacy identifiers for now; changing them requires an explicit compatibility and release decision.
 
 ## License
 

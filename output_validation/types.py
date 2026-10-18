@@ -1,4 +1,4 @@
-"""Core data types for structured-output-ai.
+"""Core data types for output-validation.
 
 Plain dataclasses with no imports outside the standard library.
 """

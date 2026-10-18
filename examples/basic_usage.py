@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Basic structured-output-ai usage: type-safe LLM responses."""
+"""Basic output-validation usage: type-safe LLM responses."""
 from __future__ import annotations
 
 import asyncio
 import json
 from typing import Protocol, runtime_checkable
 
-from structured_output_ai import (
+from output_validation import (
     ChatMessage,
     ChatResponse,
     StructuredResponse,

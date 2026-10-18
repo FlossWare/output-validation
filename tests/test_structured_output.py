@@ -1,4 +1,4 @@
-"""Tests for structured_output_ai."""
+"""Tests for output_validation."""
 
 from __future__ import annotations
 
@@ -6,13 +6,13 @@ import json
 
 import pytest
 
-from structured_output_ai import (
+from output_validation import (
     ChatMessage,
     ChatResponse,
     StructuredOutputBackend,
     StructuredResponse,
 )
-from structured_output_ai.structured_output import (
+from output_validation.structured_output import (
     _build_response,
     _extract_json,
     _normalize_parsed,

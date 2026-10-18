@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import AsyncIterator, Protocol, runtime_checkable
 
-from structured_output_ai.types import ChatMessage, ChatResponse
+from output_validation.types import ChatMessage, ChatResponse
 
 
 @runtime_checkable

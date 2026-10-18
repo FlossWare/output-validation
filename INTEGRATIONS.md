@@ -1,9 +1,9 @@
-# structured-output-ai Integrations
+# output-validation Integrations
 
 Install from GitHub:
 
 ```bash
-pip install "git+https://github.com/FlossWare/structured-output-ai.git"
+pip install "git+https://github.com/FlossWare/output-validation.git"
 ```
 
 ---
@@ -13,11 +13,11 @@ pip install "git+https://github.com/FlossWare/structured-output-ai.git"
 ### CLAUDE.md Snippet
 
 ```markdown
-## Structured Output (structured-output-ai)
+## Structured Output (output-validation)
 
-This project uses `structured-output-ai` for type-safe LLM responses.
+This project uses `output-validation` for type-safe LLM responses.
 
-- Structured output: `from structured_output_ai import structured_output, StructuredOutputBackend`
+- Structured output: `from output_validation import structured_output, StructuredOutputBackend`
 - Use `@structured_output` decorator to parse LLM responses into typed objects
 - Supports JSON extraction, schema validation, and retry on parse failure
 - Zero external dependencies (stdlib only)
@@ -35,7 +35,7 @@ from __future__ import annotations
 import json
 import sys
 
-from structured_output_ai import StructuredResponse
+from output_validation import StructuredResponse
 
 
 def validate_output(text: str) -> bool:
@@ -53,9 +53,9 @@ if __name__ == "__main__":
         with open(file_path) as f:
             content = f.read()
         if validate_output(content):
-            print(f"[structured-output-ai] {file_path}: valid structured output")
+            print(f"[output-validation] {file_path}: valid structured output")
         else:
-            print(f"[structured-output-ai] {file_path}: WARNING - invalid JSON")
+            print(f"[output-validation] {file_path}: WARNING - invalid JSON")
 ```
 
 ### Skill Example
@@ -68,10 +68,10 @@ name: extract-structured
 description: Extract structured data from LLM responses
 ---
 
-Use structured-output-ai to extract typed data from model responses:
+Use output-validation to extract typed data from model responses:
 
 \```python
-from structured_output_ai import structured_output
+from output_validation import structured_output
 
 @structured_output(schema={"type": "object", "properties": {"answer": {"type": "string"}}})
 async def get_answer(prompt: str, *, model: str = "default"):
@@ -91,8 +91,8 @@ async def get_answer(prompt: str, *, model: str = "default"):
 ```markdown
 ## Structured Output
 
-Use structured-output-ai for type-safe LLM responses:
-- Install: `pip install "git+https://github.com/FlossWare/structured-output-ai.git"`
+Use output-validation for type-safe LLM responses:
+- Install: `pip install "git+https://github.com/FlossWare/output-validation.git"`
 - Decorator: `@structured_output(schema={...})` wraps LLM calls to return parsed objects
 - Backend: `StructuredOutputBackend` wraps any `LLMBackend` with automatic parsing
 - Response: `StructuredResponse` contains `.parsed` (typed) and `.raw` (original)
@@ -101,7 +101,7 @@ Use structured-output-ai for type-safe LLM responses:
 ### Tool Definition
 
 ```python
-from structured_output_ai import structured_output, StructuredOutputBackend
+from output_validation import structured_output, StructuredOutputBackend
 
 # Decorator approach
 @structured_output(schema={"type": "object", "properties": {"bugs": {"type": "array"}}})
@@ -124,14 +124,14 @@ print(response.parsed)
 ### .cursorrules Snippet
 
 ```
-When generating structured data from LLMs, use structured-output-ai:
+When generating structured data from LLMs, use output-validation:
 
-- Import: from structured_output_ai import structured_output, StructuredOutputBackend, StructuredResponse
+- Import: from output_validation import structured_output, StructuredOutputBackend, StructuredResponse
 - Decorator: @structured_output(schema=json_schema) to parse responses automatically
 - Backend wrapper: StructuredOutputBackend(backend, default_schema=schema)
 - Response object: StructuredResponse with .parsed and .raw attributes
 - Zero dependencies - stdlib only
-- Install: pip install "git+https://github.com/FlossWare/structured-output-ai.git"
+- Install: pip install "git+https://github.com/FlossWare/output-validation.git"
 ```
 
 ---
@@ -142,7 +142,7 @@ When generating structured data from LLMs, use structured-output-ai:
 
 ```python
 # crush.config.py
-from structured_output_ai import structured_output, StructuredOutputBackend
+from output_validation import structured_output, StructuredOutputBackend
 
 async def extract_data(prompt: str, schema: dict, backend, model: str):
     """Extract structured data from LLM response."""
@@ -161,7 +161,7 @@ async def extract_data(prompt: str, schema: dict, backend, model: str):
 
 ```python
 import asyncio
-from structured_output_ai import structured_output, StructuredOutputBackend, StructuredResponse
+from output_validation import structured_output, StructuredOutputBackend, StructuredResponse
 
 # Schema for code review output
 REVIEW_SCHEMA = {
@@ -204,7 +204,7 @@ asyncio.run(main())
 ### Decorator Pattern
 
 ```python
-from structured_output_ai import structured_output
+from output_validation import structured_output
 
 SENTIMENT_SCHEMA = {
     "type": "object",
@@ -225,12 +225,12 @@ async def analyze_sentiment(text: str, *, model: str = "default"):
 
 ## Cross-Package Integration
 
-### structured-output-ai + consensus-ai
+### output-validation + consensus-ai
 
 Structured consensus: multiple models vote, result is parsed:
 
 ```python
-from structured_output_ai import structured_output
+from output_validation import structured_output
 from consensus_ai import with_consensus
 
 @structured_output(schema=REVIEW_SCHEMA)
@@ -241,12 +241,12 @@ async def consensus_review(prompt: str, *, model: str = "default"):
 # result.parsed is a dict matching REVIEW_SCHEMA
 ```
 
-### structured-output-ai + evaluation-ai
+### output-validation + evaluation-ai
 
 Structured adversarial verification:
 
 ```python
-from structured_output_ai import structured_output
+from output_validation import structured_output
 from evaluation_ai import adversarial_verify
 
 VERDICT_SCHEMA = {

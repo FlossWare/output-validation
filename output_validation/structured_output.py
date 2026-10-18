@@ -17,10 +17,10 @@ import json
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
-from structured_output_ai.types import ChatMessage, ChatResponse, StructuredResponse
+from output_validation.types import ChatMessage, ChatResponse, StructuredResponse
 
 if TYPE_CHECKING:
-    from structured_output_ai.protocol import LLMBackend
+    from output_validation.protocol import LLMBackend
 
 # -- optional jsonschema import ---------------------------------------------
 

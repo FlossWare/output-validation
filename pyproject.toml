@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "structured-output-ai"
+name = "output-validation"
 version = "0.1"
 description = "Reusable schema validation and normalization for structured model output"
 readme = "README.md"
@@ -34,7 +34,7 @@ Repository = "https://github.com/FlossWare/output-validation"
 Issues = "https://github.com/FlossWare/output-validation/issues"
 
 [tool.setuptools.packages.find]
-include = ["structured_output_ai*"]
+include = ["output_validation*"]
 
 [tool.ruff]
 target-version = "py311"

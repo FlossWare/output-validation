@@ -10,8 +10,6 @@ from __future__ import annotations
 from output_validation.protocol import LLMBackend
 from output_validation.structured_output import (
     StructuredOutputBackend,
-    _extract_json,
-    _validate_schema,
     structured_output,
 )
 from output_validation.types import ChatMessage, ChatResponse, StructuredResponse

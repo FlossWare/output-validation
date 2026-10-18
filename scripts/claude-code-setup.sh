@@ -1,5 +1,5 @@
 #!/bin/bash
-# Add structured-output-ai integration to your CLAUDE.md
+# Add output-validation integration to your CLAUDE.md
 set -e
 
 CLAUDE_MD="${CLAUDE_MD:-./CLAUDE.md}"
@@ -11,15 +11,15 @@ fi
 
 cat >> "$CLAUDE_MD" << 'EOF'
 
-## Structured Output (structured-output-ai)
+## Structured Output (output-validation)
 
-This project uses [structured-output-ai](https://github.com/FlossWare/structured-output-ai) for type-safe LLM responses.
+This project uses [output-validation](https://github.com/FlossWare/output-validation) for type-safe LLM responses.
 
-**Install:** `pip install "git+https://github.com/FlossWare/structured-output-ai.git"`
+**Install:** `pip install "git+https://github.com/FlossWare/output-validation.git"`
 
 **Key imports:**
 ```python
-from structured_output_ai import structured_output, StructuredOutputBackend, StructuredResponse
+from output_validation import structured_output, StructuredOutputBackend, StructuredResponse
 ```
 
 **Usage patterns:**
@@ -29,4 +29,4 @@ from structured_output_ai import structured_output, StructuredOutputBackend, Str
 - Zero external dependencies (stdlib only)
 EOF
 
-echo "Added structured-output-ai integration to $CLAUDE_MD"
+echo "Added output-validation integration to $CLAUDE_MD"
